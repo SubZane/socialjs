@@ -1,4 +1,4 @@
-SimpleShareButtons
+SimpleShareButtons 0.3.0
 ==================
 
-Simple Share Buttons
+Description comming very soon. Check example for how it works in the meantime.

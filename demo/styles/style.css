@@ -1,0 +1,182 @@
+body {
+		margin-top: 40px;
+		font-family: sans-serif;
+		margin-bottom: 40px;
+}
+h1 {
+		font-size: 40px;
+    text-align: center;
+		margin-bottom: 40px;
+}
+h1 span {
+		color: #D15419;
+}
+h1,
+h2,
+h3 {
+		font-weight: 700;
+}
+
+p.lead {
+  text-align: center;
+}
+
+.version {
+  font-size: 14px;
+text-align: center;
+position: relative;
+top: -35px;
+font-weight: bold;
+}
+
+p.desc {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+@font-face {
+  font-family: 'icomoon';
+  src:url('../fonts/icomoon.eot?7ngy8');
+  src:url('../fonts/icomoon.eot?#iefix7ngy8') format('embedded-opentype'),
+    url('../fonts/icomoon.woff?7ngy8') format('woff'),
+    url('../fonts/icomoon.ttf?7ngy8') format('truetype'),
+    url('../fonts/icomoon.svg?7ngy8#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-twitter:before {
+  content: "\e600";
+}
+.icon-facebook:before {
+  content: "\e601";
+}
+.icon-googleplus:before {
+  content: "\e602";
+}
+.icon-pinterest:before {
+  content: "\e603";
+  color: #cc2127;
+}
+.icon-linkedin:before {
+  content: "\e604";
+}
+.icon-stumbleupon:before {
+  content: "\e605";
+}
+
+.simplesharebuttons {
+  margin-top: 40px;
+}
+
+.simplesharebuttons ul,
+.simplesharebuttons li {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+}
+
+.simplesharebuttons ul {
+  display: table;
+  margin: 0 auto;
+}
+
+.simplesharebuttons ul li {
+  display: inline;
+}
+
+
+.sharebutton {
+		text-decoration: none;
+		display: inline-block;
+		border: 1px solid #eee;
+		border-radius: 3px;
+		margin-right: 20px;
+		float: left;
+		width: 70px;
+		padding-top: 6px;
+		padding-bottom: 5px;
+		padding-left: 10px;
+}
+
+.icon-twitter {
+  color: #55acee;
+}
+
+.icon-facebook {
+  color: #3b5998;
+}
+
+.icon-googleplus {
+  color: #dd4b39;
+}
+
+.icon-linkedin {
+  color: #0976b4;
+}
+
+.sharebutton:hover {
+		text-decoration: none;
+}
+
+.sharebutton.facebook:hover {
+  background-color: #3b5998;
+}
+
+.sharebutton.facebook:hover .count,
+.sharebutton.facebook:hover i {
+  color: white;
+}
+
+.sharebutton.twitter:hover {
+  background-color: #55acee;
+}
+
+.sharebutton.twitter:hover .count,
+.sharebutton.twitter:hover i {
+  color: white;
+}
+
+.sharebutton.linkedin:hover {
+  background-color: #0976b4;
+}
+
+.sharebutton.linkedin:hover .count,
+.sharebutton.linkedin:hover i {
+  color: white;
+}
+
+.sharebutton.googleplus:hover {
+  background-color: #dd4b39;
+}
+
+.sharebutton.googleplus:hover .count,
+.sharebutton.googleplus:hover i {
+  color: white;
+}
+
+.sharebutton .count {
+		font-size: 12px;
+		color: #333;
+		float: right;
+		padding-right: 10px;
+		font-weight: bold;
+		position: relative;
+		top: 2px;
+}
