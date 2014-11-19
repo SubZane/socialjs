@@ -3,7 +3,7 @@ SimpleShareButtons 0.5.0
 SimpleShareButtons is a jQuery plugin to easily create share buttons for the most common social media sites. It's built in a way that requires almost no knowledge in javascript but depends instead of the use of data attributes.
 
 <div style="text-align:center">
-![Simple Share Buttons](simplesharebuttons.png)
+<img src="https://github.com/SubZane/SimpleShareButtons/raw/master/simplesharebuttons.png" alt="Simple Share Buttons"/>
 </div>
 
 
