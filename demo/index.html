@@ -2,14 +2,6 @@
 <html class="no-js" lang="en">
 <head>
 	<meta charset="utf-8">
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="../dist/jquery.simplesharebuttons.js"></script>
-	<script>
-		jQuery(document).ready(function($) {
-      $('.ssb').simplesharebuttons();
-    });
-	</script>
-
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="styles/style.css">
 	<title>Simple Share Buttons - Social share buttons made easy</title>
@@ -19,13 +11,13 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8 col-xs-12 col-sm-12 col-md-push-2">
-				<h1>simple<span>share</span>buttons</h1>
+				<h1>Social<span>JS</span></h1>
         <div class="version">version 0.5.0</div>
         <p class="lead">Simple Share Buttons is a 4kb script for easy custom social share buttons.</p>
-        <iframe src="http://ghbtns.com/github-btn.html?user=subzane&repo=simplesharebuttons&type=watch&count=true&size=large" height="30" width="170" frameborder="0" scrolling="0" style="width:170px; height: 30px;" allowTransparency="true"></iframe>
-        <iframe src="http://ghbtns.com/github-btn.html?user=subzane&repo=simplesharebuttons&type=fork&count=true&size=large" height="30" width="170" frameborder="0" scrolling="0" style="width:170px; height: 30px;" allowTransparency="true"></iframe>
+        <iframe src="http://ghbtns.com/github-btn.html?user=subzane&repo=socialjs&type=watch&count=true&size=large" height="30" width="170" frameborder="0" scrolling="0" style="width:170px; height: 30px;" allowTransparency="true"></iframe>
+        <iframe src="http://ghbtns.com/github-btn.html?user=subzane&repo=socialjs&type=fork&count=true&size=large" height="30" width="170" frameborder="0" scrolling="0" style="width:170px; height: 30px;" allowTransparency="true"></iframe>
         <p class="desc">I wanted to make custom social share buttons that can be implemented without writing line after line with JavaScript. This is very easy to implement and requires close to no skills in JavaScript.</p>
-        <div class="ssb simplesharebuttons">
+        <div class="socialjs">
           <ul>
             <li><a class="sharebutton facebook" data-basecount="1690" data-sharetype="facebook" data-text="The page title" title="Share this on Facebook" href="#"><i class="icon-facebook"></i> <span class="count"></span></a></li>
             <li><a class="sharebutton twitter" data-basecount="249000" data-sharetype="twitter" data-text="The page title" data-via="AndreasNorman" data-related="AndreasNorman" title="Share this on Twitter" href="#"><i class="icon-twitter"></i> <span class="count"></span></a></li>
@@ -37,6 +29,13 @@
 			</div>
 		</div>
 	</div>
-</body>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="../dist/jquery.socialjs.js"></script>
+	<script>
+		jQuery(document).ready(function($) {
+			$('.socialjs').socialjs();
+		});
+	</script>
 
+</body>
 </html>

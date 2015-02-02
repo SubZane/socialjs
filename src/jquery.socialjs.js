@@ -1,9 +1,6 @@
-/*! Simple Share Buttons - v0.5.0 - 2014-12-10
-* https://github.com/SubZane/simplesharebuttons
-* Copyright (c) 2014 Andreas Norman; Licensed MIT */
 (function ($) {
 	// Change this to your plugin name.
-	var pluginName = 'simplesharebuttons';
+	var pluginName = 'socialjs';
 
 	/**
 	 * Plugin object constructor.
@@ -202,6 +199,7 @@
 		function attachFacebook(button) {
 			$(button).on('click', function (e) {
 				e.preventDefault();
+				hook('onClick');
 				var url = getButtonURL(this);
 				var fullurl = 'u=' + encodeURIComponent(url);
 				var encodedUrl = encodeURIComponent(url);
@@ -214,6 +212,7 @@
 		function attachLinkedIn(button) {
 			$(button).on('click', function (e) {
 				e.preventDefault();
+				hook('onClick');
 				var original_referer = getButtonReferer(this);
 				var url = getButtonURL(this);
 				var fullurl = 'original_referer=' + encodeURIComponent(original_referer) + '&url=' + encodeURIComponent(url);
@@ -227,6 +226,7 @@
 		function attachReddit(button) {
 			$(button).on('click', function (e) {
 				e.preventDefault();
+				hook('onClick');
 				var url = getButtonURL(this);
 				var fullurl = 'url=' + encodeURIComponent(url);
 				var encodedUrl = encodeURIComponent(url);
@@ -239,6 +239,7 @@
 		function attachGooglePlus(button) {
 			$(button).on('click', function (e) {
 				e.preventDefault();
+				hook('onClick');
 				var text = getButtonText(this);
 				var url = getButtonURL(this);
 				var fullurl = 'text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url);
@@ -252,6 +253,7 @@
 		function attachTwitter(button) {
 			$(button).on('click', function (e) {
 				e.preventDefault();
+				hook('onClick');
 				var text = getButtonText(this);
 				var url = getButtonURL(this);
 				var via = getButtonVia(this);
@@ -352,8 +354,8 @@
 
 		/**
 		 * Get/set a plugin option.
-		 * Get usage: $('#el').simplesharebuttons('option', 'key');
-		 * Set usage: $('#el').simplesharebuttons('option', 'key', value);
+		 * Get usage: $('#el').socialjs('option', 'key');
+		 * Set usage: $('#el').socialjs('option', 'key', value);
 		 */
 		function option(key, val) {
 			if (val) {
@@ -365,7 +367,7 @@
 
 		/**
 		 * Destroy plugin.
-		 * Usage: $('#el').simplesharebuttons('destroy');
+		 * Usage: $('#el').socialjs('destroy');
 		 */
 		function destroy() {
 			// Iterate over each matching element.
@@ -457,14 +459,15 @@
 	// Default plugin options.
 	// Options can be overwritten when initializing plugin, by
 	// passing an object literal, or after initialization:
-	// $('#el').simplesharebuttons('option', 'key', value);
+	// $('#el').socialjs('option', 'key', value);
 	$.fn[pluginName].defaults = {
 		fetchCounts: true,
 		GooglePlusAPIProvider: 'backend/GooglePlusCall.php',
 		shortCount: true,
 		onInit: function () {},
 		onLoad: function () {},
-		onDestroy: function () {}
+		onDestroy: function () {},
+		onClick: function(){},
 	};
 
 })(jQuery);

@@ -1,12 +1,12 @@
 {
-	"name": "simplesharebuttons",
-	"version": "0.5.0",
-	"homepage": "https://github.com/SubZane/simplesharebuttons",
+	"name": "socialjs",
+	"version": "0.6.0",
+	"homepage": "https://github.com/SubZane/socialjs",
 	"authors": [
 		"Andreas Norman <an@andreasnorman.se>"
 	],
-	"description": "Simple Social Share Buttons",
-	"main": "src/jquery.simplesharebuttons.js",
+	"description": "Share buttons made simple",
+	"main": "dist/jquery.socialjs.min.js",
 	"keywords": [
 		"social",
 		"jquery",

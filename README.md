@@ -1,9 +1,9 @@
-SimpleShareButtons 0.6.0
+Social JS 0.6.0
 ==================
-SimpleShareButtons is a jQuery plugin to easily create share buttons for the most common social media sites. It's built in a way that requires almost no knowledge in javascript but depends instead of the use of data attributes.
+Social JS is a jQuery plugin to easily create share buttons for the most common social media sites. It's built in a way that requires almost no knowledge in javascript but depends instead of the use of data attributes.
 
 <div style="text-align:center">
-<img src="https://github.com/SubZane/SimpleShareButtons/raw/master/simplesharebuttons.png" alt="Simple Share Buttons"/>
+<img src="https://github.com/SubZane/socialjs/raw/master/socialjs.png" alt="Social JS"/>
 </div>
 
 
@@ -23,19 +23,19 @@ SimpleShareButtons is a jQuery plugin to easily create share buttons for the mos
 
 ##Installation
 ```
-bower install simplesharebuttons --save
+bower install socialjs --save
 ```
 
 ###Setup
 ```html
 <!-- You'll need jquery -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<!-- and you'll need to include simplegmaps of course! -->
-<script src="../dist/jquery.simplesharebuttons.min.js"></script>
+<!-- and you'll need to include socialjs of course! -->
+<script src="jquery.socialjs.min.js"></script>
 ```
 ##Usage
 ```javascript
-$('#id_of_your_div').simplesharebuttons();
+$('#id_of_your_div').socialjs();
 ```
 
 ###Settings and Defaults
@@ -83,9 +83,9 @@ Exposed methods that you can access and use. The count methods is best to use wi
 In this example we alert the count of all twitter shares.
 ```javascript
 jQuery(document).ready(function($) {
-  $('.ssb').simplesharebuttons({
+  $('.socialjs').socialjs({
     onLoad: function() {
-      alert($('.ssb').simplesharebuttons('getTwitterCount'));
+      alert($('.socialjs').socialjs('getTwitterCount'));
     }
   });
 });
@@ -96,12 +96,12 @@ This could be your typical script setup for a twitter share button.
 
 ```javascript
 jQuery(document).ready(function($) {
-  $('.ssb').simplesharebuttons();
+  $('.socialjs').socialjs();
 });
 ```
 
 ```html
-<div class="ssb">
+<div class="socialjs">
   <a class="sharebutton twitter" data-basecount="249" data-sharetype="twitter" data-text="The neat page title" data-via="andreasnorman" data-related="andreasnorman" title="Share this on Twitter" href="#"><span class="count"></span></a>
 </div>
 ```
@@ -114,6 +114,7 @@ If you want to contribute with a C# client or a client in any other language ple
 ##change log
 ####0.6.0
 * Added support for Reddit
+* Renamed to Social JS since SimpleShareButtons already existed
 
 ####0.5.0
 * First real public release
