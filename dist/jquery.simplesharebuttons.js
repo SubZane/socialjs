@@ -1,4 +1,4 @@
-/*! Simple Share Buttons - v0.5.0 - 2014-11-18
+/*! Simple Share Buttons - v0.5.0 - 2014-12-10
 * https://github.com/SubZane/simplesharebuttons
 * Copyright (c) 2014 Andreas Norman; Licensed MIT */
 (function ($) {
@@ -14,6 +14,12 @@
 		var el = element;
 		var $el = $(element);
 		var totalCount = 0;
+		var twitterCount = 0;
+		var facebookCount = 0;
+		var linkedinCount = 0;
+		var googleplusCount = 0;
+		var pinterestCount = 0;
+		var redditCount = 0;
 
 		// Extend default options with those supplied by user.
 		options = $.extend({}, $.fn[pluginName].defaults, options);
@@ -48,6 +54,11 @@
 					if (options.fetchCounts) {
 						fetchGooglePlusCount(this);
 					}
+				} else if ($(this).data('sharetype') === 'reddit') {
+					attachReddit(this);
+					if (options.fetchCounts) {
+						fetchRedditCount(this);
+					}
 				}
 				afterLoad();
 			});
@@ -56,6 +67,40 @@
 		function afterLoad() {
 			$(document).ajaxStop(function () {
 				hook('onLoad');
+			});
+		}
+
+		function fetchPinterestCount(element) {
+			$.ajax({
+				url: options.PinterestAPIProvider + '?url=' + getButtonURL(element),
+				async: true,
+				dataType: 'text',
+			}).done(function (response) {
+				var count = getBaseCount(element) + parseInt(response, 10);
+				$(element).find('.count').html(shortCountNumber(count));
+				totalCount = totalCount + count;
+				pinterestCount = count;
+			});
+		}
+
+		function fetchRedditCount(element) {
+			$.ajax({
+				url: 'http://www.reddit.com/api/info.json?url=' + getButtonURL(element),
+				async: true,
+				dataType: 'json',
+			}).done(function (response) {
+				var count = 0;
+				if( !$.isArray(response.data.children) ||  !response.data.children.length ) {
+					count = getBaseCount(element);
+					$(element).find('.count').html(shortCountNumber(count));
+					totalCount = totalCount + count;
+					redditCount = count;
+				} else {
+					count = getBaseCount(element) + parseInt(response.data.children[0].data.score, 10);
+					$(element).find('.count').html(shortCountNumber(count));
+					totalCount = totalCount + count;
+					redditCount = count;
+				}
 			});
 		}
 
@@ -75,12 +120,14 @@
 				var count = 0;
 				if (typeof response.shares !== 'undefined') {
 					count = getBaseCount(element) + parseInt(response.shares, 10);
-					$(element).find('.count').html(count);
+					$(element).find('.count').html(shortCountNumber(count));
 					totalCount = totalCount + count;
+					facebookCount = count;
 				} else {
 					count = getBaseCount(element);
-					$(element).find('.count').html(count);
+					$(element).find('.count').html(shortCountNumber(count));
 					totalCount = totalCount + count;
+					facebookCount = count;
 				}
 
 			});
@@ -100,8 +147,9 @@
 				dataType: 'json',
 			}).done(function (response) {
 				var count = getBaseCount(element) + parseInt(response.count, 10);
-				$(element).find('.count').html(count);
+				$(element).find('.count').html(shortCountNumber(count));
 				totalCount = totalCount + count;
+				twitterCount = count;
 			});
 		}
 
@@ -121,8 +169,9 @@
 				dataType: 'json',
 			}).done(function (response) {
 				var count = getBaseCount(element) + parseInt(response.count, 10);
-				$(element).find('.count').html(count);
+				$(element).find('.count').html(shortCountNumber(count));
 				totalCount = totalCount + count;
+				linkedinCount = count;
 			});
 		}
 
@@ -133,9 +182,21 @@
 				dataType: 'text',
 			}).done(function (response) {
 				var count = getBaseCount(element) + parseInt(response, 10);
-				$(element).find('.count').html(count);
+				$(element).find('.count').html(shortCountNumber(count));
 				totalCount = totalCount + count;
+				googleplusCount = count;
 			});
+		}
+
+		function shortCountNumber(num) {
+			if (options.shortCount) {
+				if (num >= 1e6){
+					num = parseInt((num / 1e6).toFixed(2), 10) + 'M';
+				} else if (num >= 1e3){
+					num = parseInt((num / 1e3).toFixed(1), 10) + 'k';
+				}
+			}
+			return num;
 		}
 
 		function attachFacebook(button) {
@@ -269,6 +330,26 @@
 			return totalCount;
 		}
 
+		function getFacebookCount() {
+			return facebookCount;
+		}
+
+		function getTwitterCount() {
+			return twitterCount;
+		}
+
+		function getLinkedinCount() {
+			return linkedinCount;
+		}
+
+		function getGooglePlusCount() {
+			return googleplusCount;
+		}
+
+		function getRedditCount() {
+			return redditCount;
+		}
+
 		/**
 		 * Get/set a plugin option.
 		 * Get usage: $('#el').simplesharebuttons('option', 'key');
@@ -322,7 +403,12 @@
 		return {
 			option: option,
 			destroy: destroy,
-			getTotalCount: getTotalCount
+			getTotalCount: getTotalCount,
+			getFacebookCount: getFacebookCount,
+			getGooglePlusCount: getGooglePlusCount,
+			getLinkedinCount: getLinkedinCount,
+			getTwitterCount: getTwitterCount,
+			getRedditCount: getRedditCount
 		};
 	}
 
@@ -375,6 +461,7 @@
 	$.fn[pluginName].defaults = {
 		fetchCounts: true,
 		GooglePlusAPIProvider: 'backend/GooglePlusCall.php',
+		shortCount: true,
 		onInit: function () {},
 		onLoad: function () {},
 		onDestroy: function () {}

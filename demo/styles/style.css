@@ -37,49 +37,58 @@ p.desc {
 }
 
 @font-face {
-  font-family: 'icomoon';
-  src:url('../fonts/icomoon.eot?7ngy8');
-  src:url('../fonts/icomoon.eot?#iefix7ngy8') format('embedded-opentype'),
-    url('../fonts/icomoon.woff?7ngy8') format('woff'),
-    url('../fonts/icomoon.ttf?7ngy8') format('truetype'),
-    url('../fonts/icomoon.svg?7ngy8#icomoon') format('svg');
-  font-weight: normal;
-  font-style: normal;
+	font-family: 'icomoon';
+	src:url('../fonts/icomoon.eot?ibfg3t');
+	src:url('../fonts/icomoon.eot?#iefixibfg3t') format('embedded-opentype'),
+	url('../fonts/icomoon.woff?ibfg3t') format('woff'),
+	url('../fonts/icomoon.ttf?ibfg3t') format('truetype'),
+	url('../fonts/icomoon.svg?ibfg3t#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
 }
 
 [class^="icon-"], [class*=" icon-"] {
-  font-family: 'icomoon';
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
 
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 .icon-twitter:before {
-  content: "\e600";
+	content: "\f099";
 }
 .icon-facebook:before {
-  content: "\e601";
-}
-.icon-googleplus:before {
-  content: "\e602";
+	content: "\f09a";
 }
 .icon-pinterest:before {
-  content: "\e603";
-  color: #cc2127;
+	content: "\f0d2";
+}
+.icon-googleplus:before {
+	content: "\f0d5";
 }
 .icon-linkedin:before {
-  content: "\e604";
+	content: "\f0e1";
 }
 .icon-stumbleupon:before {
-  content: "\e605";
+	content: "\f1a4";
 }
+.icon-delicious:before {
+	content: "\f1a5";
+}
+.icon-digg:before {
+	content: "\f1a6";
+}
+.icon-reddit:before {
+	content: "\f1a1";
+}
+
 
 .simplesharebuttons {
   margin-top: 40px;
@@ -107,12 +116,12 @@ p.desc {
 		text-decoration: none;
 		display: inline-block;
 		border: 1px solid #eee;
-		border-radius: 3px;
+		border-radius: 5px;
 		margin-right: 20px;
 		float: left;
 		width: 70px;
-		padding-top: 6px;
-		padding-bottom: 5px;
+		padding-top: 7px;
+		padding-bottom: 4px;
 		padding-left: 10px;
 }
 
@@ -132,8 +141,47 @@ p.desc {
   color: #0976b4;
 }
 
+.icon-pinterest {
+	color: #cb2027;
+}
+
+.icon-reddit {
+	color: #ff5700;
+}
+
+.icon-digg {
+	color: #356AA0;
+}
+
 .sharebutton:hover {
 		text-decoration: none;
+}
+
+.sharebutton.digg:hover {
+	background-color: #356AA0;
+}
+
+.sharebutton.digg:hover .count,
+.sharebutton.digg:hover i {
+	color: white;
+}
+
+.sharebutton.reddit:hover {
+	background-color: #ff5700;
+}
+
+.sharebutton.reddit:hover .count,
+.sharebutton.reddit:hover i {
+	color: white;
+}
+
+.sharebutton.pinterest:hover {
+	background-color: #cb2027;
+}
+
+.sharebutton.pinterest:hover .count,
+.sharebutton.pinterest:hover i {
+	color: white;
 }
 
 .sharebutton.facebook:hover {
@@ -179,5 +227,5 @@ p.desc {
 		padding-right: 10px;
 		font-weight: bold;
 		position: relative;
-		top: 2px;
+		top: 1px;
 }

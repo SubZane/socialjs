@@ -51,7 +51,7 @@ module.exports = function (grunt) {
 		copy: {
 			default: {
 				files: [
-					{expand: true, flatten: true, src: ['src/GooglePlusCall.php'], dest: 'demo/backend'},
+					{expand: true, flatten: true, src: ['src/GooglePlusCall.php','src/PinterestCall.php'], dest: 'demo/backend'},
 				]
 			}
 		},

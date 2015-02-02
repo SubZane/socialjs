@@ -1,4 +1,4 @@
-SimpleShareButtons 0.5.0
+SimpleShareButtons 0.6.0
 ==================
 SimpleShareButtons is a jQuery plugin to easily create share buttons for the most common social media sites. It's built in a way that requires almost no knowledge in javascript but depends instead of the use of data attributes.
 
@@ -12,6 +12,7 @@ SimpleShareButtons is a jQuery plugin to easily create share buttons for the mos
 * Facebook
 * LinkedIn
 * Google Plus
+* Reddit
 * Can fetch share count for each social media. Requires server side client to provide a count for Google Plus. A PHP client is provided.
 
 ##Browser Support
@@ -42,15 +43,19 @@ $('#id_of_your_div').simplesharebuttons();
 options: {
   fetchCounts: true,
   GooglePlusAPIProvider: 'backend/GooglePlusCall.php',
+  shortCount: true,
   onInit: function () {},
   onLoad: function () {},
+  onClick: function(){},
   onDestroy: function () {}
 };
 ```
 * `fetchCounts`: Default true. If the plugin should fetch share count or not.
+* `shortCount`: Default true. Show total by k or M when number is to big.
 * `GooglePlusAPIProvider`: Path to server side google plus client.
 * `onInit`: Executes when initialized.
 * `onLoad`: Executes when finished loading all buttons and counts.
+* `onClick`: Executes when user clicks any share button.
 * `onDestroy`: Executes when plugin is removed/destroyed.
 
 ###Required classes, data-attributes and elements.
@@ -72,6 +77,7 @@ Exposed methods that you can access and use. The count methods is best to use wi
 * `getGooglePlusCount`: getGooglePlusCount,
 * `getLinkedinCount`: getLinkedinCount,
 * `getTwitterCount`: getTwitterCount
+* `getRedditCount`: getTwitterCount
 
 ####How to use a public method
 In this example we alert the count of all twitter shares.
@@ -106,5 +112,8 @@ Currently I have only written one in PHP but you can write your own in any langu
 If you want to contribute with a C# client or a client in any other language please do! Just fork and pull request.
 
 ##change log
+####0.6.0
+* Added support for Reddit
+
 ####0.5.0
 * First real public release
