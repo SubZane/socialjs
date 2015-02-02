@@ -1,41 +1,72 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="sv">
 <head>
 	<meta charset="utf-8">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=yes" />
+
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="styles/style.css">
+	<link rel="stylesheet" href="styles/socialjs.css">
 	<title>Social JS - Social share buttons made easy</title>
 </head>
 
 <body>
 	<div class="container">
-		<div class="row">
-			<div class="col-md-8 col-xs-12 col-sm-12 col-md-push-2">
-				<h1>Social<span>JS</span></h1>
-        <div class="version">version 0.6.0</div>
-        <p class="lead">Social JS is a 4kb script for easy custom social share buttons.</p>
-        <iframe src="http://ghbtns.com/github-btn.html?user=subzane&repo=socialjs&type=watch&count=true&size=large" height="30" width="170" frameborder="0" scrolling="0" style="width:170px; height: 30px;" allowTransparency="true"></iframe>
-        <iframe src="http://ghbtns.com/github-btn.html?user=subzane&repo=socialjs&type=fork&count=true&size=large" height="30" width="170" frameborder="0" scrolling="0" style="width:170px; height: 30px;" allowTransparency="true"></iframe>
-        <p class="desc">I wanted to make custom social share buttons that can be implemented without writing line after line with JavaScript. This is very easy to implement and requires close to no skills in JavaScript.</p>
-        <div class="socialjs">
-          <ul>
-            <li><a class="sharebutton facebook" data-basecount="1690" data-sharetype="facebook" data-text="The page title" title="Share this on Facebook" href="#"><i class="icon-facebook"></i> <span class="count"></span></a></li>
-            <li><a class="sharebutton twitter" data-basecount="249000" data-sharetype="twitter" data-text="The page title" data-via="AndreasNorman" data-related="AndreasNorman" title="Share this on Twitter" href="#"><i class="icon-twitter"></i> <span class="count"></span></a></li>
-            <li><a class="sharebutton linkedin" data-basecount="109000000" data-sharetype="linkedin" data-text="The page title" data-referer="AndreasNorman" data-related="AndreasNorman" title="Share this on LinkedIn" href="#"><i class="icon-linkedin"></i> <span class="count"></span></a></li>
-            <li><a class="sharebutton googleplus" data-basecount="149" data-sharetype="googleplus" data-text="The page title" title="Share this on Google Plus" href="#"><i class="icon-googleplus"></i> <span class="count"></span></a></li>
-						<li><a class="sharebutton reddit" data-basecount="49" data-sharetype="reddit" data-text="The page title" title="Share on reddit" href="#"><i class="icon-reddit"></i> <span class="count"></span></a></li>
-          </ul>
-        </div>
+	<div class="row">
+		<div class="col-xs-12 col-md-6 col-md-offset-3">
+			<img src="img/logo.png" class="img-responsive logo" alt="socialjs Logo">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-md-8 col-md-offset-2">
+			<div class="version">v 0.6.0</div>
+			<div class="github">
+				<a class="github-button" href="https://github.com/SubZane/socialjs" data-style="mega" data-count-href="/SubZane/socialjs/stargazers" data-count-api="/repos/SubZane/socialjs#stargazers_count">Star</a>
+				<a class="github-button" href="https://github.com/SubZane/socialjs" data-style="mega" data-count-href="/SubZane/socialjs/network" data-count-api="/repos/SubZane/socialjs#forks_count">Fork</a>
+			</div>
+			<p class="lead">Social JS is a 4kb script for easy custom social share buttons.</p>
+			<p>I wanted to make custom social share buttons that can be implemented without writing line after line with JavaScript. This is very easy to implement and requires close to no skills in JavaScript.</p>
+			<p>The share buttons below are an example on how it could look. But you can customize the design to your liking. <strong>That's the real power of Social JS. 100% design control!</strong></p>
+			<div class="socialjs">
+				<ul>
+					<li><a class="sharebutton facebook" data-basecount="1690" data-sharetype="facebook" data-text="The page title" title="Share this on Facebook" href="#"><i class=" fa fa-facebook"></i> <span class="count"></span></a></li>
+					<li><a class="sharebutton twitter" data-basecount="249000" data-sharetype="twitter" data-text="The page title" data-via="AndreasNorman" data-related="AndreasNorman" title="Share this on Twitter" href="#"><i class=" fa fa-twitter"></i> <span class="count"></span></a></li>
+					<li><a class="sharebutton linkedin" data-basecount="109000000" data-sharetype="linkedin" data-text="The page title" data-referer="AndreasNorman" data-related="AndreasNorman" title="Share this on LinkedIn" href="#"><i class=" fa fa-linkedin"></i> <span class="count"></span></a></li>
+					<li><a class="sharebutton googleplus" data-basecount="149" data-sharetype="googleplus" data-text="The page title" title="Share this on Google Plus" href="#"><i class="fa fa-google-plus"></i> <span class="count"></span></a></li>
+					<li><a class="sharebutton reddit" data-basecount="49" data-sharetype="reddit" data-text="The page title" title="Share on reddit" href="#"><i class="fa fa-reddit"></i> <span class="count"></span></a></li>
+				</ul>
+				<p class="small">(The above numbers are spoofed to illustrate how it could look on very popular website)</p>
+			</div>
+
+
+			<div class="download">
+				<a class="btn btn-primary" href="https://github.com/SubZane/socialjs">View on Github</a>
+				<p class="small">(Download the source and read the documentation)</p>
 			</div>
 		</div>
 	</div>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="../dist/jquery.socialjs.js"></script>
-	<script>
-		jQuery(document).ready(function($) {
-			$('.socialjs').socialjs();
-		});
-	</script>
+	<div class="row">
+		<div class="col-xs-12 col-md-8 col-md-offset-2">
+			<div class="codepanel">
+					<div class="bower">
+						bower install socialjs --save
+					</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="../dist/jquery.socialjs.js"></script>
+<script>
+	jQuery(document).ready(function($) {
+		$('.socialjs').socialjs();
+	});
+</script>
 
 </body>
 </html>
