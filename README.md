@@ -2,6 +2,8 @@ Social JS 0.6.0
 ==================
 Social JS is a jQuery plugin to easily create share buttons for the most common social media sites. It's built in a way that requires almost no knowledge in javascript but depends instead of the use of data attributes.
 
+[View Demo](http://andreasnorman.com/socialjs/)
+
 <div style="text-align:center">
 <img src="https://github.com/SubZane/socialjs/raw/master/demo/img/logo.png" alt="Social JS"/>
 </div>
