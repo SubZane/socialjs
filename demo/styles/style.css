@@ -90,3 +90,36 @@ a.btn-primary:hover {
 	background-color: #E67D20;
 	color: #fff;
 }
+
+
+/* footer */
+footer {
+  margin-top: 40px;
+}
+
+footer h3 {
+  font-weight: 600;
+border-bottom: 1px solid #efefef;
+padding-bottom: 10px;
+font-size: 30px;
+margin-bottom: 30px;
+}
+
+footer h4 {
+  font-size: 28px;
+  position: relative;
+  top: -6px;
+  padding: 0;
+  margin: 0px;
+  margin-bottom: 5px;
+}
+
+footer a img.img-responsive {
+  border: 3px solid #efefef;
+}
+footer p {
+  margin-bottom: 25px;
+}
+footer .project {
+  margin-bottom: 40px;
+}
