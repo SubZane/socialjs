@@ -126,10 +126,19 @@
 					totalCount = totalCount + count;
 					facebookCount = count;
 				}
-
+			}).fail(function(jqXHR, status){
+				console.warn(jqXHR.responseJSON.error.message + '\nThis error is most likely caused by running the script on http://localhost');
+				count = getBaseCount(element);
+				$(element).find('.count').html(shortCountNumber(count));
+				totalCount = totalCount + count;
+				facebookCount = count;
 			});
 		}
 
+		/*
+		This no longer works due to the face that Twitter removed this feature. It will remain here for historic reasons only.
+		See: https://blog.twitter.com/2015/hard-decisions-for-a-sustainable-platform
+		*/
 		function fetchTwitterCount(element) {
 			/*
 			http://cdn.api.twitter.com/1/urls/count.json?url=http://{URL}
@@ -138,6 +147,7 @@
 			"url":"http:\/\/{URL}\/"
 			}
 			*/
+			/*
 			$.ajax({
 				url: 'http://cdn.api.twitter.com/1/urls/count.json?url=' + getButtonURL(element) + '&callback=?',
 				async: true,
@@ -148,6 +158,11 @@
 				totalCount = totalCount + count;
 				twitterCount = count;
 			});
+			*/
+			var count = getBaseCount(element);
+			$(element).find('.count').html(shortCountNumber(count));
+			totalCount = totalCount + count;
+			twitterCount = count;
 		}
 
 		function fetchLinkedInCount(element) {

@@ -1,4 +1,4 @@
-Social JS 0.6.0
+Social JS 0.7.0
 ==================
 Social JS is a jQuery plugin to easily create share buttons for the most common social media sites. It's built in a way that requires almost no knowledge in javascript but depends instead of the use of data attributes.
 
@@ -114,6 +114,9 @@ Currently I have only written one in PHP but you can write your own in any langu
 If you want to contribute with a C# client or a client in any other language please do! Just fork and pull request.
 
 ##change log
+####0.7.0
+* CHANGE: Removed Twitter Count support due to Twitter: [Read their blogpost here](https://blog.twitter.com/2015/hard-decisions-for-a-sustainable-platform)
+
 ####0.6.0
 * Added support for Reddit
 * Renamed to Social JS since SimpleShareButtons already existed
