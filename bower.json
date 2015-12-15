@@ -1,12 +1,12 @@
 {
 	"name": "socialjs",
-	"version": "0.7.0",
+	"version": "1.0.0",
 	"homepage": "https://github.com/SubZane/socialjs",
 	"authors": [
 		"Andreas Norman <an@andreasnorman.se>"
 	],
-	"description": "Share buttons made simple",
-	"main": "dist/jquery.socialjs.min.js",
+	"description": "Customizable share buttons in vanilla js",
+	"main": "dist/socialjs.min.js",
 	"keywords": [
 		"social",
 		"jquery",
@@ -18,7 +18,5 @@
 		"**/.*",
 		"node_modules"
 	],
-	"dependencies": {
-		"jquery": "2.x"
-	}
+	"title": "socialjs"
 }

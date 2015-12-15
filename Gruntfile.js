@@ -21,8 +21,8 @@ module.exports = function (grunt) {
 				stripBanners: true
 			},
 			dist: {
-				src: ['src/jquery.<%= pkg.name %>.js'],
-				dest: 'dist/jquery.<%= pkg.name %>.js'
+				src: ['src/<%= pkg.name %>.js'],
+				dest: 'dist/<%= pkg.name %>.js'
 			},
 		},
 		uglify: {
@@ -31,9 +31,10 @@ module.exports = function (grunt) {
 			},
 			dist: {
 				src: '<%= concat.dist.dest %>',
-				dest: 'dist/jquery.<%= pkg.name %>.min.js'
+				dest: 'dist/<%= pkg.name %>.min.js'
 			},
 		},
+
 		jshint: {
 			gruntfile: {
 				options: {
@@ -45,15 +46,8 @@ module.exports = function (grunt) {
 				options: {
 					jshintrc: 'src/.jshintrc'
 				},
-				src: ['src/**/*.js']
+				src: 'src/social.js'
 			},
-		},
-		copy: {
-			default: {
-				files: [
-					{expand: true, flatten: true, src: ['src/GooglePlusCall.php','src/PinterestCall.php'], dest: 'demo/backend'},
-				]
-			}
 		},
 		watch: {
 			gruntfile: {
@@ -62,36 +56,61 @@ module.exports = function (grunt) {
 			},
 			src: {
 				files: '<%= jshint.src.src %>',
-				tasks: ['jshint:src', 'qunit']
+				tasks: ['jshint:src']
 			},
 		},
-		connect: {
-			server: {
-				options: {
-					protocol: 'http',
-					hostname: '*',
-					port: 8000,
-					base: '',
-					keepalive: true
+		copy: {
+			default: {
+				flatten: true,
+				expand: true,
+				src: ['dist/<%= pkg.name %>.js', 'dist/<%= pkg.name %>.min.js'],
+				dest: 'demo/js/',
+			},
+		},
+		update_json: {
+			// set some task-level options
+			options: {
+				src: 'package.json',
+				indent: '\t'
+			},
+			// update bower.json with data from package.json
+			bower: {
+				src: 'package.json', // where to read from
+				dest: 'bower.json', // where to write to
+				// the fields to update, as a String Grouping
+				fields: {
+					'name': 'name',
+					'title': 'title',
+					'version': 'version',
+					'description': 'description',
 				}
-			}
+			},
+			socialjs: {
+				src: 'package.json', // where to read from
+				dest: 'socialjs.json', // where to write to
+				// the fields to update, as a String Grouping
+				fields: {
+					'name': 'name',
+					'title': 'title',
+					'version': 'version',
+					'description': 'description',
+				}
+			},
+
 		}
 	});
 
 	// These plugins provide necessary tasks.
 	grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-connect');
+	grunt.loadNpmTasks('grunt-update-json');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 
 	// Default task.
-	grunt.registerTask('default', ['jshint', 'clean', 'concat', 'uglify', 'copy:default']);
-
-		grunt.registerTask('webserver', [
-		'connect'
-	]);
+	grunt.registerTask('default', ['jshint', 'clean', 'concat', 'uglify', 'copy', 'version']);
+	grunt.registerTask('version', ['update_json:bower', 'update_json:socialjs']);
 
 };

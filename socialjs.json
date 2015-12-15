@@ -1,8 +1,8 @@
 {
 	"name": "socialjs",
-	"title": "Social JS",
-	"description": "Share Buttons made easy",
-	"version": "0.7.0",
+	"title": "socialjs",
+	"description": "Customizable share buttons in vanilla js",
+	"version": "1.0.0",
 	"homepage": "https://github.com/SubZane/socialjs",
 	"author": {
 		"name": "Andreas Norman",
@@ -14,12 +14,11 @@
 		"url": "https://github.com/SubZane/socialjs.git"
 	},
 	"bugs": "https://github.com/SubZane/socialjs/issues",
-	"licenses": [{
-		"type": "MIT",
-		"url": "https://github.com/SubZane/socialjs/blob/master/LICENSE-MIT"
-	}],
-	"dependencies": {
-		"jquery": "*"
-	},
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "https://github.com/SubZane/socialjs/blob/master/LICENSE-MIT"
+		}
+	],
 	"keywords": []
 }
