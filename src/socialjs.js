@@ -32,9 +32,17 @@
 		container: '.socialjs',
 		onInit: function () {},
 		OnAttachEvents: function () {},
-		onDestroy: function () {}
+		onDestroy: function () {},
+		onClick: function () {}
 	};
 
+	var urls = {
+		GooglePlus: 'api/GooglePlusCall.php',
+		Pinterest: 'api/PinterestCall.php',
+		Facebook: 'http://graph.facebook.com/',
+		Linkedin: 'http://www.linkedin.com/countserv/count/share',
+		Reddit: 'http://www.reddit.com/api/info.json'
+	};
 
 	//
 	// Methods
@@ -46,27 +54,27 @@
     forEach(sharebuttons, function (shareButton, value) {
       if (shareButton.getAttribute('data-sharetype') === 'twitter') {
         attachTwitter(shareButton);
-        if (options.fetchCounts) {
+        if (settings.fetchCounts) {
           fetchTwitterCount(shareButton);
         }
       } else if (shareButton.getAttribute('data-sharetype') === 'facebook') {
         attachFacebook(shareButton);
-        if (options.fetchCounts) {
+        if (settings.fetchCounts) {
           fetchFacebookCount(shareButton);
         }
       } else if (shareButton.getAttribute('data-sharetype') === 'linkedin') {
         attachLinkedIn(shareButton);
-        if (options.fetchCounts) {
+        if (settings.fetchCounts) {
           fetchLinkedInCount(shareButton);
         }
       } else if (shareButton.getAttribute('data-sharetype') === 'googleplus') {
         attachGooglePlus(shareButton);
-        if (options.fetchCounts) {
+        if (settings.fetchCounts) {
           fetchGooglePlusCount(shareButton);
         }
       } else if (shareButton.getAttribute('data-sharetype') === 'reddit') {
         attachReddit(shareButton);
-        if (options.fetchCounts) {
+        if (settings.fetchCounts) {
           fetchRedditCount(shareButton);
         }
       }
@@ -82,7 +90,7 @@
   }
   */
   var fetchFacebookCount = function (element) {
-    var jsonURL = 'http://graph.facebook.com/?id=' + getDataAttribute(element, 'url');
+    var jsonURL = urls.Facebook + '?id=' + getDataAttribute(element, 'url');
     var request = new XMLHttpRequest();
     request.open('GET', jsonURL, true);
 
@@ -113,36 +121,6 @@
 
 
   /*
-  This no longer works due to the face that Twitter removed this feature. It will remain here for historic reasons only.
-  See: https://blog.twitter.com/2015/hard-decisions-for-a-sustainable-platform
-  */
-  var fetchTwitterCount = function (element) {
-    /*
-    http://cdn.api.twitter.com/1/urls/count.json?url=http://{URL}
-    {
-    "count": intgr/(number)
-    "url":"http:\/\/{URL}\/"
-    }
-    */
-    /*
-    $.ajax({
-      url: 'http://cdn.api.twitter.com/1/urls/count.json?url=' + getButtonURL(element) + '&callback=?',
-      async: true,
-      dataType: 'json',
-    }).done(function (response) {
-      var count = getBaseCount(element) + parseInt(response.count, 10);
-      $(element).find('.count').html(shortCountNumber(count));
-      totalCount = totalCount + count;
-      twitterCount = count;
-    });
-    */
-    count = getDataAttribute(element, 'basecount');
-    element.querySelector('.count').innerHTML = shortCountNumber(count);
-    totalCount = totalCount + count;
-    twitterCount = count;
-  }
-
-  /*
   http://www.linkedin.com/countserv/count/share?url=http://{URL&format=json
   {
   "count": intgr/(number),
@@ -152,7 +130,7 @@
   }
   */
   var fetchLinkedInCount = function (element) {
-    var jsonURL = 'http://www.linkedin.com/countserv/count/share?url=' + getDataAttribute(element, 'url') + '&callback=?';
+    var jsonURL = urls.Linkedin + '?url=' + getDataAttribute(element, 'url') + '&callback=?';
     var request = new XMLHttpRequest();
     request.open('GET', jsonURL, true);
 
@@ -169,52 +147,10 @@
 			// There was a connection error of some sort
 		};
 		request.send();
-  }
-
-
+  };
 
   var fetchRedditCount = function (element) {
-    var jsonURL = 'http://www.reddit.com/api/info.json?url=' + getDataAttribute(element, 'url');
-		var request = new XMLHttpRequest();
-		request.open('GET', jsonURL, true);
-
-    request.onload = function () {
-			if (request.status >= 200 && request.status < 400) {
-				// Success!
-        var count = getDataAttribute(element, 'basecount') + parseInt(response, 10);
-        element.querySelector('.count').innerHTML = shortCountNumber(count);
-        totalCount = totalCount + count;
-        pinterestCount = count;
-			}
-		};
-		request.onerror = function () {
-			// There was a connection error of some sort
-		};
-		request.send();
-
-
-    $.ajax({
-      url: 'http://www.reddit.com/api/info.json?url=' + getButtonURL(element),
-      async: true,
-      dataType: 'json',
-    }).done(function (response) {
-      var count = 0;
-      if( !$.isArray(response.data.children) ||  !response.data.children.length ) {
-        count = getBaseCount(element);
-        $(element).find('.count').html(shortCountNumber(count));
-        totalCount = totalCount + count;
-        redditCount = count;
-      } else {
-        count = getBaseCount(element) + parseInt(response.data.children[0].data.score, 10);
-        $(element).find('.count').html(shortCountNumber(count));
-        totalCount = totalCount + count;
-        redditCount = count;
-      }
-    });
-  }
-
-  var fetchPinterestCount = function (element) {
-    var jsonURL = options.PinterestAPIProvider + '?url=' + getDataAttribute(element, 'url');
+    var jsonURL = urls.Reddit + '?url=' + getDataAttribute(element, 'url');
 		var request = new XMLHttpRequest();
 		request.open('GET', jsonURL, true);
 
@@ -232,6 +168,109 @@
 		};
 		request.send();
   };
+
+  var fetchPinterestCount = function (element) {
+    var jsonURL = settings.Pinterest + '?url=' + getDataAttribute(element, 'url');
+		var request = new XMLHttpRequest();
+		request.open('GET', jsonURL, true);
+
+    request.onload = function () {
+			if (request.status >= 200 && request.status < 400) {
+				// Success!
+        var count = getDataAttribute(element, 'basecount') + parseInt(response, 10);
+        element.querySelector('.count').innerHTML = shortCountNumber(count);
+        totalCount = totalCount + count;
+        pinterestCount = count;
+			}
+		};
+		request.onerror = function () {
+			// There was a connection error of some sort
+		};
+		request.send();
+  };
+
+	var fetchGooglePlusCount = function (element) {
+		$.ajax({
+			url: urls.GooglePlus + '?url=' + getButtonURL(element),
+			async: true,
+			dataType: 'text',
+		}).done(function (response) {
+			var count = getBaseCount(element) + parseInt(response, 10);
+			$(element).find('.count').html(shortCountNumber(count));
+			totalCount = totalCount + count;
+			googleplusCount = count;
+		});
+	}
+
+	var attachFacebook = function (button) {
+		button.addEventListener('click', function (e) {
+			e.preventDefault();
+			hook('onClick');
+			var url = (this.hasAttribute('url') ? this.getAttribute('url') : '');
+			var fullurl = 'u=' + encodeURIComponent(url);
+			var encodedUrl = encodeURIComponent(url);
+			window.facebook = window.facebook || {};
+			window.facebook.shareWin = window.open('https://www.facebook.com/sharer/sharer.php?' + fullurl, '', getWindowSizePosition());
+			return false;
+		});
+	};
+
+	var attachLinkedIn = function (button) {
+		button.addEventListener('click', function (e) {
+			e.preventDefault();
+			hook('onClick');
+			var original_referer = (this.hasAttribute('referer') ? this.getAttribute('referer') : '');
+			var url = (this.hasAttribute('url') ? this.getAttribute('url') : '');
+			var fullurl = 'original_referer=' + encodeURIComponent(original_referer) + '&url=' + encodeURIComponent(url);
+			var encodedUrl = encodeURIComponent(url);
+			window.GooglePlus = window.GooglePlus || {};
+			window.GooglePlus.shareWin = window.open('https://www.linkedin.com/cws/share?' + fullurl + '&isFramed=true', '', getWindowSizePosition());
+			return false;
+		});
+	};
+
+	var attachReddit = function (button) {
+		button.addEventListener('click', function (e) {
+			e.preventDefault();
+			hook('onClick');
+			var url = (this.hasAttribute('url') ? this.getAttribute('url') : '');
+			var fullurl = 'url=' + encodeURIComponent(url);
+			var encodedUrl = encodeURIComponent(url);
+			window.Reddit = window.Reddit || {};
+			window.Reddit.shareWin = window.open('http://www.reddit.com/submit?' + fullurl, '', getWindowSizePosition());
+			return false;
+		});
+	};
+
+	var attachGooglePlus = function (button) {
+		button.addEventListener('click', function (e) {
+			e.preventDefault();
+			hook('onClick');
+			var text = (this.hasAttribute('text') ? this.getAttribute('text') : '');
+			var url = (this.hasAttribute('url') ? this.getAttribute('url') : '');
+			var fullurl = 'text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url);
+			var encodedUrl = encodeURIComponent(url);
+			window.GooglePlus = window.GooglePlus || {};
+			window.GooglePlus.shareWin = window.open('https://plus.google.com/share?' + fullurl, '', getWindowSizePosition());
+			return false;
+		});
+	};
+
+	var attachTwitter = function (button) {
+		button.addEventListener('click', function (e) {
+			e.preventDefault();
+			hook('onClick');
+			var text = (this.hasAttribute('text') ? this.getAttribute('text') : '');
+			var url = (this.hasAttribute('url') ? this.getAttribute('url') : '');
+			var via = (this.hasAttribute('via') ? this.getAttribute('via') : '');
+			var related = (this.hasAttribute('related') ? this.getAttribute('related') : '');
+			var fullurl = 'text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url) + '&via=' + via + '&related=' + related;
+			var encodedUrl = encodeURIComponent(url);
+			window.Twitter = window.Twitter || {};
+			window.Twitter.shareWin = window.open('https://twitter.com/intent/tweet?' + fullurl, '', getWindowSizePosition());
+			return false;
+		});
+	};
 
   var shortCountNumber = function (num) {
     if (options.shortCount) {
@@ -382,29 +421,23 @@
 	// Public APIs
 	//
 
-  socialjs.getTotalCount = function () {
-    return totalCount;
-  };
-
-  socialjs.getFacebookCount = function () {
-    return facebookCount;
-  };
-
-  socialjs.getTwitterCount = function () {
-    return twitterCount;
-  };
-
-  socialjs.getLinkedinCount = function () {
-    return linkedinCount;
-  };
-
-  socialjs.getGooglePlusCount = function () {
-    return googleplusCount;
-  };
-
-  socialjs.getRedditCount = function () {
-    return redditCount;
-  };
+	socialjs.getCount = {
+		Total: function () {
+			return totalCount;
+		},
+		Facebook: function () {
+			return facebookCount;
+		},
+		Linkedin: function () {
+			return linkedinCount;
+		},
+		GooglePlus: function () {
+			return googleplusCount;
+		},
+		Reddit: function () {
+			return redditCount;
+		}
+	};
 
 	return socialjs;
 });

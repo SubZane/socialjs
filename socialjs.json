@@ -2,7 +2,7 @@
 	"name": "socialjs",
 	"title": "socialjs",
 	"description": "Customizable share buttons in vanilla js",
-	"version": "1.0.0",
+	"version": "2.0.0-beta",
 	"homepage": "https://github.com/SubZane/socialjs",
 	"author": {
 		"name": "Andreas Norman",

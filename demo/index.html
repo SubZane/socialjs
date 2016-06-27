@@ -22,7 +22,7 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-12 col-md-8 col-md-offset-2">
-			<div class="version">v 0.7.0</div>
+			<div class="version">v 2.0.0-beta</div>
 			<div class="github">
 				<a class="github-button" href="https://github.com/SubZane/socialjs" data-style="mega" data-count-href="/SubZane/socialjs/stargazers" data-count-api="/repos/SubZane/socialjs#stargazers_count">Star</a>
 				<a class="github-button" href="https://github.com/SubZane/socialjs" data-style="mega" data-count-href="/SubZane/socialjs/network" data-count-api="/repos/SubZane/socialjs#forks_count">Fork</a>
@@ -120,12 +120,13 @@
 </div>
 
 <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="../dist/jquery.socialjs.js"></script>
+<script src="js/socialjs.js"></script>
 <script>
-	jQuery(document).ready(function($) {
-		$('.socialjs').socialjs();
+document.addEventListener("DOMContentLoaded", function(event) {
+	socialjs.init({
+		container: '.socialjs'
 	});
+});
 </script>
 <script>
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
