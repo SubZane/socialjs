@@ -1,4 +1,4 @@
-/*! socialjs - v1.0.0 - 2016-06-27
+/*! socialjs - v2.0.0-beta - 2016-06-28
 * https://github.com/SubZane/socialjs
 * Copyright (c) 2016 Andreas Norman; Licensed MIT */
 (function (root, factory) {
@@ -33,6 +33,8 @@
 	// Default settings
 	var defaults = {
 		container: '.socialjs',
+		fetchCounts: true,
+		shortCount: true,
 		onInit: function () {},
 		OnAttachEvents: function () {},
 		onDestroy: function () {},
@@ -40,8 +42,8 @@
 	};
 
 	var urls = {
-		GooglePlus: 'api/GooglePlusCall.php',
-		Pinterest: 'api/PinterestCall.php',
+		GooglePlus: 'backend/GooglePlusCall.php',
+		Pinterest: 'backend/PinterestCall.php',
 		Facebook: 'http://graph.facebook.com/',
 		Linkedin: 'http://www.linkedin.com/countserv/count/share',
 		Reddit: 'http://www.reddit.com/api/info.json'
@@ -85,6 +87,24 @@
 		hook('OnAttachEvents');
 	};
 
+	/*
+	This no longer works due to the face that Twitter removed this feature. It will remain here for historic reasons only.
+	See: https://blog.twitter.com/2015/hard-decisions-for-a-sustainable-platform
+	*/
+	var fetchTwitterCount = function (element) {
+		/*
+		http://cdn.api.twitter.com/1/urls/count.json?url=http://{URL}
+		{
+		"count": intgr/(number)
+		"url":"http:\/\/{URL}\/"
+		}
+		*/
+		var count = getDataAttribute(element, 'basecount');
+		element.querySelector('.count').innerHTML = shortCountNumber(count);
+		totalCount = totalCount + count;
+		twitterCount = count;
+	};
+
   /*
   http://graph.facebook.com/?id=http://{URL}
   {
@@ -93,7 +113,7 @@
   }
   */
   var fetchFacebookCount = function (element) {
-    var jsonURL = urls.Facebook + '?id=' + getDataAttribute(element, 'url');
+    var jsonURL = urls.Facebook + '?id=' + getUrl(element);
     var request = new XMLHttpRequest();
     request.open('GET', jsonURL, true);
 
@@ -133,7 +153,7 @@
   }
   */
   var fetchLinkedInCount = function (element) {
-    var jsonURL = urls.Linkedin + '?url=' + getDataAttribute(element, 'url') + '&callback=?';
+    var jsonURL = urls.Linkedin + '?url=' + getUrl(element);
     var request = new XMLHttpRequest();
     request.open('GET', jsonURL, true);
 
@@ -152,18 +172,31 @@
 		request.send();
   };
 
+	var handleError = function () {
+
+	};
+
   var fetchRedditCount = function (element) {
-    var jsonURL = urls.Reddit + '?url=' + getDataAttribute(element, 'url');
+    var jsonURL = urls.Reddit + '?url=' + getUrl(element);
 		var request = new XMLHttpRequest();
 		request.open('GET', jsonURL, true);
 
     request.onload = function () {
 			if (request.status >= 200 && request.status < 400) {
+				var response = JSON.parse(request.response);
 				// Success!
-        var count = getDataAttribute(element, 'basecount') + parseInt(response, 10);
-        element.querySelector('.count').innerHTML = shortCountNumber(count);
-        totalCount = totalCount + count;
-        pinterestCount = count;
+				var count = 0;
+				if( !Array.isArray(response.data.children) ||  !response.data.children.length ) {
+					count = getDataAttribute(element, 'basecount');
+					element.querySelector('.count').innerHTML = shortCountNumber(count);
+					totalCount = totalCount + count;
+					redditCount = count;
+				} else {
+					count = getDataAttribute(element, 'basecount') + parseInt(response.data.children[0].data.score, 10);
+					element.querySelector('.count').innerHTML = shortCountNumber(count);
+					totalCount = totalCount + count;
+					redditCount = count;
+				}
 			}
 		};
 		request.onerror = function () {
@@ -173,12 +206,13 @@
   };
 
   var fetchPinterestCount = function (element) {
-    var jsonURL = settings.Pinterest + '?url=' + getDataAttribute(element, 'url');
+    var jsonURL = settings.Pinterest + '?url=' + getUrl(element);
 		var request = new XMLHttpRequest();
 		request.open('GET', jsonURL, true);
 
     request.onload = function () {
 			if (request.status >= 200 && request.status < 400) {
+				var response = JSON.parse(request.response);
 				// Success!
         var count = getDataAttribute(element, 'basecount') + parseInt(response, 10);
         element.querySelector('.count').innerHTML = shortCountNumber(count);
@@ -193,17 +227,25 @@
   };
 
 	var fetchGooglePlusCount = function (element) {
-		$.ajax({
-			url: urls.GooglePlus + '?url=' + getButtonURL(element),
-			async: true,
-			dataType: 'text',
-		}).done(function (response) {
-			var count = getBaseCount(element) + parseInt(response, 10);
-			$(element).find('.count').html(shortCountNumber(count));
-			totalCount = totalCount + count;
-			googleplusCount = count;
-		});
-	}
+		var jsonURL = urls.GooglePlus + '?url=' + getUrl(element);
+		var request = new XMLHttpRequest();
+		request.open('GET', jsonURL, true);
+
+    request.onload = function () {
+			if (request.status >= 200 && request.status < 400) {
+				var response = JSON.parse(request.response);
+				// Success!
+        var count = getDataAttribute(element, 'basecount') + parseInt(response, 10);
+        element.querySelector('.count').innerHTML = shortCountNumber(count);
+        totalCount = totalCount + count;
+        googleplusCount = count;
+			}
+		};
+		request.onerror = function () {
+			// There was a connection error of some sort
+		};
+		request.send();
+	};
 
 	var attachFacebook = function (button) {
 		button.addEventListener('click', function (e) {
@@ -276,7 +318,7 @@
 	};
 
   var shortCountNumber = function (num) {
-    if (options.shortCount) {
+    if (settings.shortCount) {
       if (num >= 1e6){
         num = parseInt((num / 1e6).toFixed(2), 10) + 'M';
       } else if (num >= 1e3){
@@ -285,6 +327,15 @@
     }
     return num;
   };
+
+	var getUrl = function (element) {
+		var attributeValue = element.getAttribute('data-url');
+		if (typeof attributeValue !== 'undefined' && attributeValue !== null && attributeValue !== '') {
+      return attributeValue;
+    } else {
+			return window.location.href;
+    }
+	};
 
   var getDataAttribute = function (element, attributeName) {
     var attributeValue = element.getAttribute('data-' + attributeName);
