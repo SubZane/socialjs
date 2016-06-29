@@ -1,4 +1,4 @@
-/*! socialjs - v2.0.0-beta - 2016-06-28
+/*! socialjs - v2.0.0-beta - 2016-06-29
 * https://github.com/SubZane/socialjs
 * Copyright (c) 2016 Andreas Norman; Licensed MIT */
 (function (root, factory) {
@@ -35,18 +35,17 @@
 		container: '.socialjs',
 		fetchCounts: true,
 		shortCount: true,
+		urls: {
+			GooglePlus: 'backend/GooglePlusCall.php',
+			Pinterest: 'backend/PinterestCall.php',
+			Facebook: 'http://graph.facebook.com/',
+			Linkedin: 'http://www.linkedin.com/countserv/count/share',
+			Reddit: 'http://www.reddit.com/api/info.json'
+		},
 		onInit: function () {},
 		OnAttachEvents: function () {},
 		onDestroy: function () {},
 		onClick: function () {}
-	};
-
-	var urls = {
-		GooglePlus: 'backend/GooglePlusCall.php',
-		Pinterest: 'backend/PinterestCall.php',
-		Facebook: 'http://graph.facebook.com/',
-		Linkedin: 'http://www.linkedin.com/countserv/count/share',
-		Reddit: 'http://www.reddit.com/api/info.json'
 	};
 
 	//
@@ -113,7 +112,7 @@
   }
   */
   var fetchFacebookCount = function (element) {
-    var jsonURL = urls.Facebook + '?id=' + getUrl(element);
+    var jsonURL = settings.urls.Facebook + '?id=' + getUrl(element);
     var request = new XMLHttpRequest();
     request.open('GET', jsonURL, true);
 
@@ -123,17 +122,16 @@
         var response = JSON.parse(request.response);
 
         if (typeof response.shares !== 'undefined') {
-          count = getDataAttribute(element, 'basecount') + parseInt(response.shares, 10);
+          count = parseInt(getDataAttribute(element, 'basecount')) + parseInt(response.shares, 10);
           element.querySelector('.count').innerHTML = shortCountNumber(count);
           totalCount = totalCount + count;
           facebookCount = count;
         } else {
-          count = getDataAttribute(element, 'basecount');
+          count = parseInt(getDataAttribute(element, 'basecount'));
           element.querySelector('.count').innerHTML = shortCountNumber(count);
           totalCount = totalCount + count;
           facebookCount = count;
         }
-
 			}
 		};
 		request.onerror = function () {
@@ -153,31 +151,17 @@
   }
   */
   var fetchLinkedInCount = function (element) {
-    var jsonURL = urls.Linkedin + '?url=' + getUrl(element);
-    var request = new XMLHttpRequest();
-    request.open('GET', jsonURL, true);
-
-    request.onload = function () {
-			if (request.status >= 200 && request.status < 400) {
-        var response = JSON.parse(request.response);
-        var count = getDataAttribute(element, 'basecount') + parseInt(response.shares, 10);
-        element.querySelector('.count').innerHTML = shortCountNumber(count);
-        totalCount = totalCount + count;
-        linkedinCount = count;
-			}
-		};
-		request.onerror = function () {
-			// There was a connection error of some sort
-		};
-		request.send();
+		var jsonURL = settings.urls.Linkedin + '?url=' + getUrl(element);
+		jsonp(jsonURL, function(data) {
+			 var count = parseInt(getDataAttribute(element, 'basecount')) + parseInt(data.count, 10);
+			 element.querySelector('.count').innerHTML = shortCountNumber(count);
+			 totalCount = totalCount + count;
+			 linkedinCount = count;
+		});
   };
 
-	var handleError = function () {
-
-	};
-
   var fetchRedditCount = function (element) {
-    var jsonURL = urls.Reddit + '?url=' + getUrl(element);
+    var jsonURL = settings.urls.Reddit + '?url=' + getUrl(element);
 		var request = new XMLHttpRequest();
 		request.open('GET', jsonURL, true);
 
@@ -187,12 +171,12 @@
 				// Success!
 				var count = 0;
 				if( !Array.isArray(response.data.children) ||  !response.data.children.length ) {
-					count = getDataAttribute(element, 'basecount');
+					count = parseInt(getDataAttribute(element, 'basecount'));
 					element.querySelector('.count').innerHTML = shortCountNumber(count);
 					totalCount = totalCount + count;
 					redditCount = count;
 				} else {
-					count = getDataAttribute(element, 'basecount') + parseInt(response.data.children[0].data.score, 10);
+					count = parseInt(getDataAttribute(element, 'basecount')) + parseInt(response.data.children[0].data.score, 10);
 					element.querySelector('.count').innerHTML = shortCountNumber(count);
 					totalCount = totalCount + count;
 					redditCount = count;
@@ -214,7 +198,7 @@
 			if (request.status >= 200 && request.status < 400) {
 				var response = JSON.parse(request.response);
 				// Success!
-        var count = getDataAttribute(element, 'basecount') + parseInt(response, 10);
+        var count = parseInt(getDataAttribute(element, 'basecount')) + parseInt(response, 10);
         element.querySelector('.count').innerHTML = shortCountNumber(count);
         totalCount = totalCount + count;
         pinterestCount = count;
@@ -227,7 +211,7 @@
   };
 
 	var fetchGooglePlusCount = function (element) {
-		var jsonURL = urls.GooglePlus + '?url=' + getUrl(element);
+		var jsonURL = settings.urls.GooglePlus + '?url=' + getUrl(element);
 		var request = new XMLHttpRequest();
 		request.open('GET', jsonURL, true);
 
@@ -235,7 +219,7 @@
 			if (request.status >= 200 && request.status < 400) {
 				var response = JSON.parse(request.response);
 				// Success!
-        var count = getDataAttribute(element, 'basecount') + parseInt(response, 10);
+        var count = parseInt(getDataAttribute(element, 'basecount')) + parseInt(response, 10);
         element.querySelector('.count').innerHTML = shortCountNumber(count);
         totalCount = totalCount + count;
         googleplusCount = count;
@@ -345,6 +329,23 @@
       return '';
     }
   };
+
+	var handleError = function () {
+
+	};
+
+	var jsonp = function (url, callback) {
+		var callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
+		window[callbackName] = function(data) {
+			delete window[callbackName];
+			document.body.removeChild(script);
+			callback(data);
+		};
+
+		var script = document.createElement('script');
+		script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
+		document.body.appendChild(script);
+	};
 
   var getWindowSizePosition = function () {
     var D = 550,
@@ -456,6 +457,10 @@
 		// feature test
 		if (!supports) {
 			return;
+		}
+
+		if (document.location.hostname === 'localhost') {
+			console.warn('SocialJS will not work properly when run on localhost. The URL must be accessible from the outside.');
 		}
 
 		// Destroy any existing initializations

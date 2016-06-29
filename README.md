@@ -1,6 +1,6 @@
-Social JS 0.7.0
+Social JS 2.0.0-beta
 ==================
-Social JS is a jQuery plugin to easily create share buttons for the most common social media sites. It's built in a way that requires almost no knowledge in javascript but depends instead of the use of data attributes.
+Social JS is a Javascript to easily create share buttons for the most common social media sites. It's built in a way that requires almost no knowledge in javascript but depends instead of the use of data attributes.
 
 [View Demo](http://andreasnorman.com/socialjs/)
 
@@ -10,7 +10,7 @@ Social JS is a jQuery plugin to easily create share buttons for the most common 
 
 
 ##Features
-* Twitter
+* Twitter - [API for fetching counts is shutdown](https://blog.twitter.com/2015/hard-decisions-for-a-sustainable-platform)
 * Facebook
 * LinkedIn
 * Google Plus
@@ -19,9 +19,9 @@ Social JS is a jQuery plugin to easily create share buttons for the most common 
 
 ##Browser Support
 * Google Chrome
-* Internet Explorer 8+
+* Internet Explorer 10+
 * Firefox
-* Safari 6+
+* Safari 8+
 
 ##Installation
 ```
@@ -30,33 +30,40 @@ bower install socialjs --save
 
 ###Setup
 ```html
-<!-- You'll need jquery -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <!-- and you'll need to include socialjs of course! -->
-<script src="jquery.socialjs.min.js"></script>
+<script src="socialjs.min.js"></script>
 ```
 ##Usage
 ```javascript
-$('#id_of_your_div').socialjs();
+socialjs.init();
 ```
 
 ###Settings and Defaults
 ```javascript
 options: {
+  container: '.socialjs',
   fetchCounts: true,
-  GooglePlusAPIProvider: 'backend/GooglePlusCall.php',
   shortCount: true,
+  urls: {
+    GooglePlus: 'backend/GooglePlusCall.php',
+    Facebook: 'http://graph.facebook.com/',
+    Linkedin: 'http://www.linkedin.com/countserv/count/share',
+    Reddit: 'http://www.reddit.com/api/info.json'
+  },
   onInit: function () {},
-  onLoad: function () {},
-  onClick: function(){},
-  onDestroy: function () {}
+  OnAttachEvents: function () {},
+  onDestroy: function () {},
+  onClick: function () {}
 };
 ```
 * `fetchCounts`: Default true. If the plugin should fetch share count or not.
 * `shortCount`: Default true. Show total by k or M when number is to big.
-* `GooglePlusAPIProvider`: Path to server side google plus client.
+* `GooglePlus`: Path to server side google plus client.
+* `Facebook`: URL to REST Service. Don't change unless you know what your doing.
+* `Linkedin`: URL to REST Service. Don't change unless you know what your doing.
+* `Reddit`: URL to REST Service. Don't change unless you know what your doing.
 * `onInit`: Executes when initialized.
-* `onLoad`: Executes when finished loading all buttons and counts.
+* `OnAttachEvents`: Executes when finished attaching all events.
 * `onClick`: Executes when user clicks any share button.
 * `onDestroy`: Executes when plugin is removed/destroyed.
 
@@ -72,39 +79,29 @@ If you want a count to be presented you'll need to add a `span` element inside t
 
 ###Public methods
 Exposed methods that you can access and use. The count methods is best to use within the `onLoad` hook since the count will be fetched by and Ajax request.
-* `option`: option,
-* `destroy`: destroy,
-* `getTotalCount`: getTotalCount,
-* `getFacebookCount`: getFacebookCount,
-* `getGooglePlusCount`: getGooglePlusCount,
-* `getLinkedinCount`: getLinkedinCount,
-* `getTwitterCount`: getTwitterCount
-* `getRedditCount`: getTwitterCount
+* `getCount.Total`: getTotalCount,
+* `getCount.Facebook`: getFacebookCount,
+* `getCount.GooglePlus`: getGooglePlusCount,
+* `getCount.Linkedin`: getLinkedinCount,
+* `getCount.Reddit`: getTwitterCount
 
 ####How to use a public method
-In this example we alert the count of all twitter shares.
+In this example we alert the count of all Facebook shares.
 ```javascript
-jQuery(document).ready(function($) {
-  $('.socialjs').socialjs({
-    onLoad: function() {
-      alert($('.socialjs').socialjs('getTwitterCount'));
-    }
-  });
-});
+socialjs.init();
+alert(socialjs.getCount.Facebook());
 ```
 
 ###Typical setup
-This could be your typical script setup for a twitter share button.
+This could be your typical script setup for a facebook share button.
 
 ```javascript
-jQuery(document).ready(function($) {
-  $('.socialjs').socialjs();
-});
+socialjs.init();
 ```
 
 ```html
 <div class="socialjs">
-  <a class="sharebutton twitter" data-basecount="249" data-sharetype="twitter" data-text="The neat page title" data-via="andreasnorman" data-related="andreasnorman" title="Share this on Twitter" href="#"><span class="count"></span></a>
+  <a class="sharebutton facebook" data-basecount="249" data-sharetype="facebook" data-text="The neat page title" title="Share this on Facebook" href="#"><span class="count"></span></a>
 </div>
 ```
 
@@ -114,6 +111,9 @@ Currently I have only written one in PHP but you can write your own in any langu
 If you want to contribute with a C# client or a client in any other language please do! Just fork and pull request.
 
 ##change log
+####2.0.0-beta
+* CHANGE: Rewritten in vanilla Javascript. No dependencies needed.
+
 ####0.7.0
 * CHANGE: Removed Twitter Count support due to Twitter: [Read their blogpost here](https://blog.twitter.com/2015/hard-decisions-for-a-sustainable-platform)
 
