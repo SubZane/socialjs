@@ -235,7 +235,7 @@
 		button.addEventListener('click', function (e) {
 			e.preventDefault();
 			hook('onClick');
-			var url = (this.hasAttribute('url') ? this.getAttribute('url') : '');
+			var url = getUrl(button);
 			var fullurl = 'u=' + encodeURIComponent(url);
 			var encodedUrl = encodeURIComponent(url);
 			window.facebook = window.facebook || {};
@@ -248,8 +248,8 @@
 		button.addEventListener('click', function (e) {
 			e.preventDefault();
 			hook('onClick');
-			var original_referer = (this.hasAttribute('referer') ? this.getAttribute('referer') : '');
-			var url = (this.hasAttribute('url') ? this.getAttribute('url') : '');
+			var original_referer = (button.hasAttribute('data-referer') ? button.getAttribute('data-referer') : '');
+			var url = getUrl(button);
 			var fullurl = 'original_referer=' + encodeURIComponent(original_referer) + '&url=' + encodeURIComponent(url);
 			var encodedUrl = encodeURIComponent(url);
 			window.GooglePlus = window.GooglePlus || {};
@@ -262,7 +262,7 @@
 		button.addEventListener('click', function (e) {
 			e.preventDefault();
 			hook('onClick');
-			var url = (this.hasAttribute('url') ? this.getAttribute('url') : '');
+			var url = getUrl(button);
 			var fullurl = 'url=' + encodeURIComponent(url);
 			var encodedUrl = encodeURIComponent(url);
 			window.Reddit = window.Reddit || {};
@@ -275,8 +275,8 @@
 		button.addEventListener('click', function (e) {
 			e.preventDefault();
 			hook('onClick');
-			var text = (this.hasAttribute('text') ? this.getAttribute('text') : '');
-			var url = (this.hasAttribute('url') ? this.getAttribute('url') : '');
+			var text = (button.hasAttribute('data-text') ? button.getAttribute('data-text') : '');
+			var url = getUrl(button);
 			var fullurl = 'text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url);
 			var encodedUrl = encodeURIComponent(url);
 			window.GooglePlus = window.GooglePlus || {};
@@ -289,10 +289,10 @@
 		button.addEventListener('click', function (e) {
 			e.preventDefault();
 			hook('onClick');
-			var text = (this.hasAttribute('text') ? this.getAttribute('text') : '');
-			var url = (this.hasAttribute('url') ? this.getAttribute('url') : '');
-			var via = (this.hasAttribute('via') ? this.getAttribute('via') : '');
-			var related = (this.hasAttribute('related') ? this.getAttribute('related') : '');
+			var text = (button.hasAttribute('data-text') ? button.getAttribute('data-text') : '');
+			var url = getUrl(button);
+			var via = (button.hasAttribute('data-via') ? button.getAttribute('data-via') : '');
+			var related = (button.hasAttribute('related') ? button.getAttribute('related') : '');
 			var fullurl = 'text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url) + '&via=' + via + '&related=' + related;
 			var encodedUrl = encodeURIComponent(url);
 			window.Twitter = window.Twitter || {};
