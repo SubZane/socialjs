@@ -44,6 +44,7 @@ options: {
   container: '.socialjs',
   fetchCounts: true,
   shortCount: true,
+  https: true,
   urls: {
     GooglePlus: 'backend/GooglePlusCall.php',
     Facebook: 'http://graph.facebook.com/',
@@ -58,6 +59,7 @@ options: {
 ```
 * `fetchCounts`: Default true. If the plugin should fetch share count or not.
 * `shortCount`: Default true. Show total by k or M when number is to big.
+* `https`: Defaults false. Set to true to change all requests from HTTP to HTTPS.
 * `GooglePlus`: Path to server side google plus client.
 * `Facebook`: URL to REST Service. Don't change unless you know what your doing.
 * `Linkedin`: URL to REST Service. Don't change unless you know what your doing.
@@ -111,6 +113,9 @@ Currently I have only written one in PHP but you can write your own in any langu
 If you want to contribute with a C# client or a client in any other language please do! Just fork and pull request.
 
 ##change log
+####2.1.0
+* CHANGE: Added option to set all requests from HTTP to HTTPS.
+
 ####2.0.0-beta
 * CHANGE: Rewritten in vanilla Javascript. No dependencies needed.
 

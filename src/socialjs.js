@@ -32,12 +32,13 @@
 		container: '.socialjs',
 		fetchCounts: true,
 		shortCount: true,
+		https: false,
 		urls: {
 			GooglePlus: 'backend/GooglePlusCall.php',
 			Pinterest: 'backend/PinterestCall.php',
 			Facebook: 'http://graph.facebook.com/',
 			Linkedin: 'http://www.linkedin.com/countserv/count/share',
-			Reddit: 'http://www.reddit.com/api/info.json'
+			Reddit: 'http://www.reddit.com/api/info.json',
 		},
 		onInit: function () {},
 		OnAttachEvents: function () {},
@@ -109,6 +110,7 @@
   }
   */
   var fetchFacebookCount = function (element) {
+		console.log(settings.urls.Facebook);
     var jsonURL = settings.urls.Facebook + '?id=' + getUrl(element);
     var request = new XMLHttpRequest();
     request.open('GET', jsonURL, true);
@@ -263,7 +265,7 @@
 			var fullurl = 'url=' + encodeURIComponent(url);
 			var encodedUrl = encodeURIComponent(url);
 			window.Reddit = window.Reddit || {};
-			window.Reddit.shareWin = window.open('http://www.reddit.com/submit?' + fullurl, '', getWindowSizePosition());
+			window.Reddit.shareWin = window.open('https://www.reddit.com/submit?' + fullurl, '', getWindowSizePosition());
 			return false;
 		});
 	};
@@ -454,6 +456,12 @@
 		// feature test
 		if (!supports) {
 			return;
+		}
+
+		if(options.https === true){
+			defaults.urls.Facebook = 'https://graph.facebook.com/';
+			defaults.urls.Linkedin = 'https://www.linkedin.com/countserv/count/share';
+			defaults.urls.Reddit = 'https://www.reddit.com/api/info.json';
 		}
 
 		if (document.location.hostname === 'localhost') {
