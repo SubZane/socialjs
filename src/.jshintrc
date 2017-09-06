@@ -1,10 +1,11 @@
 {
   "curly": true,
   "eqeqeq": true,
-  "latedef": true,
+  "latedef": false,
   "noarg": true,
   "quotmark": "single",
   "boss": true,
   "trailing": true,
+  "loopfunc" : true,
   "browser": true
 }

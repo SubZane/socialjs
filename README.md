@@ -1,4 +1,4 @@
-Social JS 2.0.0-beta
+Social JS 2.1.1
 ==================
 Social JS is a Javascript to easily create share buttons for the most common social media sites. It's built in a way that requires almost no knowledge in javascript but depends instead of the use of data attributes.
 
@@ -113,6 +113,9 @@ Currently I have only written one in PHP but you can write your own in any langu
 If you want to contribute with a C# client or a client in any other language please do! Just fork and pull request.
 
 ##change log
+####2.1.1
+* Fixed bug with https not working as intended.
+
 ####2.1.0
 * CHANGE: Added option to set all requests from HTTP to HTTPS.
 

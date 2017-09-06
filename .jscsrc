@@ -1,0 +1,7 @@
+{
+  "requireCurlyBraces": true,
+	"validateQuoteMarks": "'",
+  "disallowTrailingComma": true,
+  "disallowTrailingWhitespace": true,
+	"disallowUnusedVariables": true
+}

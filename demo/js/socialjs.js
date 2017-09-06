@@ -1,6 +1,6 @@
-/*! socialjs - v2.1.0 - 2016-11-22
+/*! socialjs - v2.1.0 - 2017-09-06
 * https://github.com/SubZane/socialjs
-* Copyright (c) 2016 Andreas Norman; Licensed MIT */
+* Copyright (c) 2017 Andreas Norman; Licensed MIT */
 (function (root, factory) {
 	if (typeof define === 'function' && define.amd) {
 		define([], factory(root));
@@ -19,7 +19,7 @@
 
 	var socialjs = {}; // Object for public APIs
 	var supports = !!document.querySelector && !!root.addEventListener; // Feature test
-	var settings, eventTimeout;
+	var settings;
 	var el;
 
   var totalCount = 0;
@@ -113,7 +113,6 @@
   }
   */
   var fetchFacebookCount = function (element) {
-		console.log(settings.urls.Facebook);
     var jsonURL = settings.urls.Facebook + '?id=' + getUrl(element);
     var request = new XMLHttpRequest();
     request.open('GET', jsonURL, true);
@@ -268,7 +267,7 @@
 			var fullurl = 'url=' + encodeURIComponent(url);
 			var encodedUrl = encodeURIComponent(url);
 			window.Reddit = window.Reddit || {};
-			window.Reddit.shareWin = window.open('http://www.reddit.com/submit?' + fullurl, '', getWindowSizePosition());
+			window.Reddit.shareWin = window.open('https://www.reddit.com/submit?' + fullurl, '', getWindowSizePosition());
 			return false;
 		});
 	};
@@ -446,7 +445,6 @@
 
 		// Reset variables
 		settings = null;
-		eventTimeout = null;
 		hook('onDestroy');
 	};
 
@@ -461,10 +459,10 @@
 			return;
 		}
 
-		if(options.https === true){
+		if(options.https === true) {
 			defaults.urls.Facebook = 'https://graph.facebook.com/';
 			defaults.urls.Linkedin = 'https://www.linkedin.com/countserv/count/share';
-			defaults.urls.Reddit = 'http://www.reddit.com/api/info.json';
+			defaults.urls.Reddit = 'https://www.reddit.com/api/info.json';
 		}
 
 		if (document.location.hostname === 'localhost') {

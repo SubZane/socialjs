@@ -16,7 +16,7 @@
 
 	var socialjs = {}; // Object for public APIs
 	var supports = !!document.querySelector && !!root.addEventListener; // Feature test
-	var settings, eventTimeout;
+	var settings;
 	var el;
 
   var totalCount = 0;
@@ -110,7 +110,6 @@
   }
   */
   var fetchFacebookCount = function (element) {
-		console.log(settings.urls.Facebook);
     var jsonURL = settings.urls.Facebook + '?id=' + getUrl(element);
     var request = new XMLHttpRequest();
     request.open('GET', jsonURL, true);
@@ -443,7 +442,6 @@
 
 		// Reset variables
 		settings = null;
-		eventTimeout = null;
 		hook('onDestroy');
 	};
 
@@ -458,7 +456,7 @@
 			return;
 		}
 
-		if(options.https === true){
+		if(options.https === true) {
 			defaults.urls.Facebook = 'https://graph.facebook.com/';
 			defaults.urls.Linkedin = 'https://www.linkedin.com/countserv/count/share';
 			defaults.urls.Reddit = 'https://www.reddit.com/api/info.json';
