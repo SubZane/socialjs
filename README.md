@@ -113,6 +113,10 @@ Currently I have only written one in PHP but you can write your own in any langu
 If you want to contribute with a C# client or a client in any other language please do! Just fork and pull request.
 
 ##change log
+
+####2.2.0
+* Change: Now adds functionality to multiple socialjs containers on page. 
+
 ####2.1.1
 * Fixed bug with https not working as intended.
 
