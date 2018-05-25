@@ -51,6 +51,8 @@
 	//
 
 	var attachEvents = function () {
+    Array.prototype.forEach.call(el, function (el, i) {
+				
     var sharebuttons = el.querySelectorAll('.sharebutton');
 
     forEach(sharebuttons, function (shareButton, value) {
@@ -80,6 +82,7 @@
           fetchRedditCount(shareButton);
         }
       }
+    });
     });
 		hook('OnAttachEvents');
 	};
@@ -472,7 +475,7 @@
 		// Merge user options with defaults
 		settings = extend(defaults, options || {});
 
-		el = document.querySelector(settings.container);
+		el = document.querySelectorAll(settings.container);
 
 		attachEvents();
 
