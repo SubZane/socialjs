@@ -53,36 +53,36 @@
 	var attachEvents = function () {
     Array.prototype.forEach.call(el, function (el, i) {
 				
-    var sharebuttons = el.querySelectorAll('.sharebutton');
+			var sharebuttons = el.querySelectorAll('.sharebutton');
 
-    forEach(sharebuttons, function (shareButton, value) {
-      if (shareButton.getAttribute('data-sharetype') === 'twitter') {
-        attachTwitter(shareButton);
-        if (settings.fetchCounts) {
-          fetchTwitterCount(shareButton);
-        }
-      } else if (shareButton.getAttribute('data-sharetype') === 'facebook') {
-        attachFacebook(shareButton);
-        if (settings.fetchCounts) {
-          fetchFacebookCount(shareButton);
-        }
-      } else if (shareButton.getAttribute('data-sharetype') === 'linkedin') {
-        attachLinkedIn(shareButton);
-        if (settings.fetchCounts) {
-          fetchLinkedInCount(shareButton);
-        }
-      } else if (shareButton.getAttribute('data-sharetype') === 'googleplus') {
-        attachGooglePlus(shareButton);
-        if (settings.fetchCounts) {
-          fetchGooglePlusCount(shareButton);
-        }
-      } else if (shareButton.getAttribute('data-sharetype') === 'reddit') {
-        attachReddit(shareButton);
-        if (settings.fetchCounts) {
-          fetchRedditCount(shareButton);
-        }
-      }
-    });
+			forEach(sharebuttons, function (shareButton, value) {
+				if (shareButton.getAttribute('data-sharetype') === 'twitter') {
+					attachTwitter(shareButton);
+					if (settings.fetchCounts) {
+						fetchTwitterCount(shareButton);
+					}
+				} else if (shareButton.getAttribute('data-sharetype') === 'facebook') {
+					attachFacebook(shareButton);
+					if (settings.fetchCounts) {
+						fetchFacebookCount(shareButton);
+					}
+				} else if (shareButton.getAttribute('data-sharetype') === 'linkedin') {
+					attachLinkedIn(shareButton);
+					if (settings.fetchCounts) {
+						fetchLinkedInCount(shareButton);
+					}
+				} else if (shareButton.getAttribute('data-sharetype') === 'googleplus') {
+					attachGooglePlus(shareButton);
+					if (settings.fetchCounts) {
+						fetchGooglePlusCount(shareButton);
+					}
+				} else if (shareButton.getAttribute('data-sharetype') === 'reddit') {
+					attachReddit(shareButton);
+					if (settings.fetchCounts) {
+						fetchRedditCount(shareButton);
+					}
+				}
+			});
     });
 		hook('OnAttachEvents');
 	};
