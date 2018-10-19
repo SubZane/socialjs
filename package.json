@@ -2,20 +2,35 @@
   "name": "socialjs",
   "title": "socialjs",
   "description": "Customizable share buttons in vanilla js",
-  "version": "2.1.1",
-  "engines": {
-    "node": ">= 0.8.0"
-  },
+  "version": "2.2.0",
   "devDependencies": {
     "grunt": "~1.0.1",
-    "grunt-contrib-clean": "~1.1.0",
+    "grunt-contrib-clean": "~2.0.0",
     "grunt-contrib-concat": "~1.0.1",
-    "grunt-contrib-connect": "^1.0.2",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-jshint": "~1.1.0",
-    "grunt-contrib-uglify": "3.0.x",
-    "grunt-contrib-watch": "~1.0.0",
-    "grunt-update-json": "^0.2.1",
-    "grunt-web-server": "^1.2.3"
-  }
+    "grunt-contrib-jshint": "~2.0.0",
+    "grunt-contrib-uglify": "4.0.x",
+    "grunt-contrib-watch": "~1.1.0"
+  },
+  "main": "dist/socialjs.min.js",
+  "repository": "https://subzane@github.com/SubZane/socialjs.git",
+  "homepage": "https://www.andreasnorman.com/socialjs/",
+  "bugs": "https://github.com/SubZane/socialjs/issues",
+  "author": "Andreas Norman <an@andreasnorman.se>",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+		"social",
+		"jquery",
+		"share",
+		"buttons"
+  ],
+  "files": [
+    "dist/*.js",
+    "/*.js",
+    "demo/*.*",
+    "*.json",
+    "*.md",
+    "LICENSE-MIT"
+  ]
 }

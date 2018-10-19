@@ -1,6 +1,6 @@
-/*! socialjs - v2.1.0 - 2017-09-06
-* https://github.com/SubZane/socialjs
-* Copyright (c) 2017 Andreas Norman; Licensed MIT */
+/*! socialjs - v2.2.0 - 2018-10-19
+* https://www.andreasnorman.com/socialjs/
+* Copyright (c) 2018 ; Licensed  */
 (function (root, factory) {
 	if (typeof define === 'function' && define.amd) {
 		define([], factory(root));
